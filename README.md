@@ -70,3 +70,19 @@ Which will download the two libraries we need, `requests` and `beautifulsoup4`.
 The first step is simple: can we get python to fetch a web page? There isn't much code here, but after getting through the chores of setting up a project (building the venv, getting your imports, setting up the script to be callable, etc.), it's nice to give yourself a little reward and see that everything is working as it should. 
 
 
+## next
+
+enter 
+'''
+git checkout step002
+''' 
+to see the next step. Or, if you want to jump to the final working code, go to 
+'''
+git checkout final
+'''
+To see all the steps, you can do
+'''
+git tag
+'''
+
+

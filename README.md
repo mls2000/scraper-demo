@@ -67,15 +67,6 @@ Which will download the two libraries we need, `requests` and `beautifulsoup4`.
 
 ## To run
 
-We break this process into two main steps: 1) copy files off the remote website, and 2) extract the text we want from the files. `scraper.py` takes care of the first step, `parser.py` does the second. You can run each script from the CLI as an argument to `python3`, like `python3 scraper.py` or `python3 parser.py`. 
-
-`scraper.py` has a variable towards the top named `URL` which is the root of the site we want to scrape. It starts on that page, downloads it, and does two things: 1) it saves a local copy in the `scraped` subfolder, and 2) it pulls out all the links. Any links that a) it hasn't seen before and b) are somewhere under `URL` get added to a global list. It then grabs the next link on the list, and repeats the process. 
-
-`parser.py` reads the downloaded html files, and in each file searches for the html elements where the interesting content is stored. 
-
-
-
-
-
+The first step is simple: can we get python to fetch a web page? There isn't much code here, but after getting through the chores of setting up a project (building the venv, getting your imports, setting up the script to be callable, etc.), it's nice to give yourself a little reward and see that everything is working as it should. 
 
 

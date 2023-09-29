@@ -4,6 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from time import sleep
+from os import mkdir, makedirs
+from os.path import dirname, exists, join, abspath
 
 
 ''' this is the website we will scrape '''
@@ -32,6 +34,13 @@ def download(url):
     try: 
         r = requests.get(url)
         page_links = get_links(r.text, url)
+        filepath = get_filepath_from_url(url)
+        try:
+            with open(filepath, 'w') as outfile:
+                outfile.write(r.text)
+        except OSError as ose:
+            print(f"could not save '{filepath}' for {url}")
+            raise()
         for link in page_links: 
             if link not in LINKS:
                 LINKS.add(link)
@@ -44,6 +53,49 @@ def download(url):
         url = QUEUE.pop(0)
         download(url)
 
+
+
+def get_filepath_from_url(url):
+    if url == URL: 
+        filepath = 'index'
+    elif url.startswith(URL):
+        ''' 
+        strip the domain from the url. For example, if our target site is 
+          http://www.webpage.com/a/bunch/of/folders
+        and the current url is 
+          http://www.webpage.com/a/bunch/of/folders/to/a/file.html
+        we want the 
+          to/a/file.html
+        part. 
+        '''
+        filepath = url[URL_LENGTH:]
+    '''
+    we don't want a leading '/' in the filepath, because 
+    if we try to add it to OUTPUT_DIR, it can break out 
+    and make stuff go to the root directory
+    '''
+    if filepath[0] == '/':
+        filepath = filepath[1:]
+    '''
+    separate the folders from the last part of the path, 
+    which will become the file name. 
+    For example, if filepath is now 
+      to/a/file.html
+    we want to split "to/a" from "file.html"
+    '''
+    last_slash = filepath.rfind('/')
+    if last_slash > 0:
+        filename = filepath[last_slash + 1:]
+        filepath = filepath[0: last_slash]
+    else: 
+        filename = filepath
+        filepath = ''
+    if not filename.endswith('.html'): 
+        filename += '.html'
+    outpath = join(OUTPUT_DIR, filepath)
+    if not exists(outpath):
+        makedirs(outpath)
+    return join(OUTPUT_DIR, filepath, filename)
 
     
 def get_links(html, baseurl):

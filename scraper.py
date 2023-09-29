@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 from time import sleep
 from os import mkdir, makedirs
 from os.path import dirname, exists, join, abspath
+from time import sleep
 
 
 ''' this is the website we will scrape '''

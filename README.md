@@ -12,6 +12,8 @@ Also, as we get further into the site, some more pages come up that we can proba
 
 Another consideration is that some servers can't handle a flood of requests. It can be useful for both you and the server administrators if you add a little wait time between requests. We'll use the `sleep` method from python's `time` library for this. 
 
+Lastly, we will make another method that checks whether any more pages need to be fetched, and then calls our download method as needed. 
+
 
 ## next
 

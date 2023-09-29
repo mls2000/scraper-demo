@@ -27,6 +27,13 @@ QUEUE = [URL]
 WAIT_SECONDS = 1
 
 
+def process_next():
+    while len(QUEUE) > 0:
+        url = QUEUE.pop(0)
+        download(url)
+        sleep(WAIT_SECONDS)
+
+
 def download(url):
     print(f"fetching '{url}'")
     try: 
@@ -39,10 +46,6 @@ def download(url):
                 print(f"{url} links to {link}")
     except requests.ConnectionError as ce:
         print(f"could not fetch '{url}'", ce)
-    if len(QUEUE) > 0:
-        sleep(WAIT_SECONDS)
-        url = QUEUE.pop(0)
-        download(url)
 
 
     
@@ -101,6 +104,6 @@ def get_links(html, baseurl):
 
 
 if __name__ == "__main__":
-    download(URL)
+    process_next()
     import sys
     sys.exit(0)

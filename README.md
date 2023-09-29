@@ -11,7 +11,7 @@ In addition to relative and absolute links, some links start with `//` instead o
 
 enter 
 '''
-git checkout step003
+git checkout step004
 ''' 
 to see the next step. Or, if you want to jump to the final working code, go to 
 '''

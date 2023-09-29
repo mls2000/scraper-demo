@@ -6,7 +6,6 @@ from urllib.parse import urlparse
 from time import sleep
 from os import mkdir, makedirs
 from os.path import dirname, exists, join, abspath
-from time import sleep
 
 
 ''' this is the website we will scrape '''
@@ -19,15 +18,24 @@ PATH = PARSED.path
 PATH_LENGTH = len(PATH) if len(PATH.replace('/', '')) > 0 else 0
 
 
-''' 
-Track the links we have visited, so we don't visit the same link twice, 
-lest we get caught in an endless loop.
-'''
 LINKS = set(URL)
 QUEUE = [URL]
 
-
 WAIT_SECONDS = 1
+
+'''
+make the output destination predictable, regardless of where you
+call it from
+'''
+HERE = dirname(__file__)
+OUTPUT_DIR = abspath(join(HERE, 'scraped'))
+
+
+def process_next():
+    while len(QUEUE) > 0:
+        url = QUEUE.pop(0)
+        download(url)
+        sleep(WAIT_SECONDS)
 
 
 def download(url):
@@ -46,14 +54,8 @@ def download(url):
             if link not in LINKS:
                 LINKS.add(link)
                 QUEUE.append(link)
-                print(f"{url} links to {link}")
     except requests.ConnectionError as ce:
         print(f"could not fetch '{url}'", ce)
-    if len(QUEUE) > 0:
-        sleep(WAIT_SECONDS)
-        url = QUEUE.pop(0)
-        download(url)
-
 
 
 def get_filepath_from_url(url):
@@ -154,6 +156,6 @@ def get_links(html, baseurl):
 
 
 if __name__ == "__main__":
-    download(URL)
+    process_next()
     import sys
     sys.exit(0)

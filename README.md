@@ -10,6 +10,8 @@ One thing we want to prevent is visiting the same page twice. Imagine your secon
 
 Also, as we get further into the site, some more pages come up that we can probably skip. There are some that end in "?edit": we don't want our scraper to edit pages. Let's add something to prevent that. In fact, any time there's a question mark in the url, that's an indication that the server is doing some sort of special variation on the page. For this site, it's unlikely we are interested in that, so remove anything after the "?".
 
+Another consideration is that some servers can't handle a flood of requests. It can be useful for both you and the server administrators if you add a little wait time between requests. We'll use the `sleep` method from python's `time` library for this. 
+
 
 ## next
 

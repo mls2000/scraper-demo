@@ -3,6 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+from time import sleep
 
 
 ''' this is the website we will scrape '''
@@ -23,6 +24,9 @@ LINKS = set(URL)
 QUEUE = [URL]
 
 
+WAIT_SECONDS = 1
+
+
 def download(url):
     print(f"fetching '{url}'")
     try: 
@@ -36,6 +40,7 @@ def download(url):
     except requests.ConnectionError as ce:
         print(f"could not fetch '{url}'", ce)
     if len(QUEUE) > 0:
+        sleep(WAIT_SECONDS)
         url = QUEUE.pop(0)
         download(url)
 

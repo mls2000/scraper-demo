@@ -2,16 +2,20 @@
 
 Sometimes you can get your data by downloading a zipped up file. And sometimes, you need to visit every single page on a website and copy it. In the latter case, we call this a scraper, and this code base shows how to make a simple one. 
 
-## handle all the variations of link types. 
+## Start fetching more pages
 
-In addition to relative and absolute links, some links start with `//` instead of `http://` or `https://`. There can be more complexity around relative links as well: are they from a url that ends with '.html' or not? Here the `` method is built out to handle these cases. We take advantage of python's built in urllib library to parse the URL into different parts. We can use those to compare the incoming link to our target, and to build out an absolute link that we can pass into the download method.  
+So far we built something that finds all the links we want on one and only one page. Our next step is to then visit all those links. 
+
+One thing we want to prevent is visiting the same page twice. Imagine your second page links back to the first. You store the link to the first page, then visit it again and get the link to the second. Then back to the first, and so on, and so on. It seems obvious, but it's an easy mistake to make. We'll save a set of all the links we find so that we only go to each one once. We will also have a list of the links we need to visit, and we'll remove items from that as we visit them. 
+
+Also, as we get further into the site, some more pages come up that we can probably skip. There are some that end in "?edit": we don't want our scraper to edit pages. Let's add something to prevent that. In fact, any time there's a question mark in the url, that's an indication that the server is doing some sort of special variation on the page. For this site, it's unlikely we are interested in that, so remove anything after the "?".
 
 
 ## next
 
 enter 
 '''
-git checkout step004
+git checkout step005
 ''' 
 to see the next step. Or, if you want to jump to the final working code, go to 
 '''

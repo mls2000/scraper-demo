@@ -31,18 +31,18 @@ for dirpath, dnames, fnames in walk(SCRAPE_DIR):
         if fname.endswith(".html"):
             html = open(join(dirpath, fname)).read()
             soup = BeautifulSoup(html, 'html.parser') 
-            # try: 
-            title = soup.css.select_one(TITLE_SELECTOR).text.strip()
-            content = soup.css.select_one(CONTENT_SELECTOR).text.strip()
-            fname = fname.replace('.html', '')
-            outpath = join(OUTPUT_DIR, f"{fname}.txt")
-            if exists(outpath):
-                raise ValueError(f"dupe filename {outpath}")
-            print(outpath)
-            with open(outpath, 'w') as outfile:
-                print(title, file=outfile)
-                print("\n", file=outfile)
-                print(content, file=outfile)
-            # except AttributeError:
-            #     print(f"error parsing '{join(dirpath, fname)}'")
+            try: 
+              title = soup.css.select_one(TITLE_SELECTOR).text.strip()
+              content = soup.css.select_one(CONTENT_SELECTOR).text.strip()
+              fname = fname.replace('.html', '')
+              outpath = join(OUTPUT_DIR, f"{fname}.txt")
+              if exists(outpath):
+                  raise ValueError(f"dupe filename {outpath}")
+              print(outpath)
+              with open(outpath, 'w') as outfile:
+                  print(title, file=outfile)
+                  print("\n", file=outfile)
+                  print(content, file=outfile)
+            except AttributeError:
+                print(f"error parsing '{join(dirpath, fname)}'")
             

@@ -19,16 +19,16 @@ And tada! We have a scraper that copies our target website. But we haven't extra
 ## next
 
 enter 
-'''
+```
 git checkout step006
-''' 
+``` 
 to see the next step. Or, if you want to jump to the final working code, go to 
-'''
+```
 git checkout main
-'''
+```
 To see all the steps, you can do
-'''
+```
 git branch
-'''
+```
 
 

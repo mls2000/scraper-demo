@@ -23,11 +23,10 @@ git checkout step005
 ''' 
 to see the next step. Or, if you want to jump to the final working code, go to 
 '''
-git checkout final
+git checkout main
 '''
 To see all the steps, you can do
 '''
-git tag
+git branch
 '''
-
 

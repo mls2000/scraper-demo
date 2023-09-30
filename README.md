@@ -5,7 +5,9 @@ Sometimes you can get your data by downloading a zipped up file. And sometimes, 
 
 ## Requirements: 
 
-We're going to assume some basic knowledge of working with a command line interface (CLI). You'll need git and python installed. Python is a programming language that is both powerful and easy to read (at least as far as programming languages go). Git is a tool for version control: it lets you jump back and forth between different versions of your code. When you download this code base, you get the completed example. But if you want to learn how it gets built up, we use git for that. 
+We're going to assume some basic knowledge of working with a command line interface (CLI). It's also helpful to know how a little bit about [HTML](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics), which is the code behind the way a web page is built. 
+
+As far as software, you'll python3 installed, and git too if you want to step through how the code is built. Python is a programming language that is both powerful and easy to read (at least as far as programming languages go). Git is a tool for version control: it lets you jump back and forth between different versions of your code. When you download this code base, you get the completed example. But if you want to learn how it gets built up, we use git for that. 
 
 #### Mac
 Python3 comes installed on most macs these days. You can test whether you have python3 by opening up a window in the Terminal app and running 
@@ -17,21 +19,13 @@ If the line after that should show an absolute path that ends with "/python3". I
 which git
 ```
 
-This page has notes on installing git: 
-https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-And the instructions on this page can help you get python installed. 
-https://www.python.org/downloads/
+[This page](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) has notes on installing git, and the instructions on [this page](https://www.python.org/downloads/) can help you get python installed. 
 
-And if by chance you have homebrew installed, the brew installation of python is perfectly fine. And if you don't know what that is, ignore this. 
+And if by chance you have homebrew installed, the brew installation of python3 is perfectly fine. And if you don't know what that is, ignore this. 
 
 
 #### Windows
-I have less experience here, but you may want to install python from the Microsoft store. There's a tutorial here on 
-getting started with python
-https://learn.microsoft.com/en-us/windows/python/beginners
-
-and this page will get you started with git. 
-https://git-scm.com/download/win
+I have less experience here, but you may want to install python from the Microsoft store. Here's a [tutorial](https://learn.microsoft.com/en-us/windows/python/beginners) on getting started with python. [This page](https://git-scm.com/download/win) can help you get started with git. 
 
 
 

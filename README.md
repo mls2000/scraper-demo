@@ -24,12 +24,12 @@ In order to evaluate all the files we download, we use python's built in methods
 ## fin
 
 enter 
-'''
+```
 git checkout main
-''' 
+``` 
 to jump to the final working code. To see all the steps, you can do
-'''
+```
 git branch
-'''
+```
 
 

@@ -28,7 +28,7 @@ git checkout final
 '''
 To see all the steps, you can do
 '''
-git tag
+git branch
 '''
 
 

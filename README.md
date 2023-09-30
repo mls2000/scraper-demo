@@ -2,34 +2,92 @@
 
 Sometimes you can get your data by downloading a zipped up file. And sometimes, you need to visit every single page on a website and copy it. In the latter case, we call this a scraper, and this code base shows how to make a simple one. 
 
-## Parse the pages
 
-Up to this point, our code has fetched all the pages from a remote website and made local copies. But we haven't tried to extract anything interesting from the pages we copied. This is intentional! For many real world data scraping tasks, you don't know what you want at the start, or how to find it. Making a local copy lets you poke around without having to scrape the site every time you get a new idea. Once you do know how to find what you're after, then it can be a good idea to extract the good stuff as soon as you fetch it. But we aren't there yet.
+## Requirements: 
 
-If you take one of the pages we downloaded and open it in a browser, it does not look like what's on the original site. There are huge icons, there's no header row for navigation, the colors are brutal, etc. A modern web page can have lots of extra files to make it look and act like it does, and we haven't fetched those. This reveals just how much boilerplate stuff is on the page; for the example page I pulled up, the interesting stuff doesn't show up until 80% of the way down. 
+We're going to assume some basic knowledge of working with a command line interface (CLI). You'll need git and python installed. Python is a programming language that is both powerful and easy to read (at least as far as programming languages go). Git is a tool for version control: it lets you jump back and forth between different versions of your code. When you download this code base, you get the completed example. But if you want to learn how it gets built up, we use git for that. 
 
-Once you find the stuff you want, you can try to figure out how to extract it from the page. If you right click in the browser, most modern browsers have an "Inspect" or "Inspect Element" option. This will open up a new panel that lets you see into the web page source code. The cool thing is that moving your mouse over something in this panel will highlight that item in the web page. The thing you started with might be a little too specific, but it will often be nested inside other elements–that's indicated by the indentation. Moving your mouse around in the inspector panel, you can zoom out until you find the element you want. Then you can check if it has an `id` or `class` that you can use to identify it. In this example, the pages have a title with a class of `page-header__title-wrapper`, and the other interesting stuff is in a `div` element with an id of `content`. 
+#### Mac
+Python3 comes installed on most macs these days. You can test whether you have python3 by opening up a window in the Terminal app and running 
+```
+which python3
+```
+If the line after that should show an absolute path that ends with "/python3". If you just get another prompt, then it's not installed. Similarly, you can check for git by running 
+```
+which git
+```
 
-Note that the information under content can take a lot of different shapes: some pages discuss people, some places, etc., and what's important about them changes. Further work could try to find what's interesting about places and extract that, and same for people. This example isn't going that deep, because that will change very much for different websites. 
+This page has notes on installing git: 
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+And the instructions on this page can help you get python installed. 
+https://www.python.org/downloads/
 
-We use the BeautifulSoup library to find all the links on a page in our `get_links` method. The method we used was `find_all`, and it lets us find all the elements of a certain type (we looked for `<a>` tags). There's another method called `select`, and a variant called `select_one`, that allows for searching by id, or class, or tag type (if you're into front end web development, it uses CSS selectors). Since we know the id and class name of the elements we are after, this is a natural fit here.
-
-
-In order to evaluate all the files we download, we use python's built in methods to traverse all the files in a directory. For each one, we pull the title and the key content using beautiful soup, and then save them in a new file in the `parsed` folder. 
-
-
+And if by chance you have homebrew installed, the brew installation of python is perfectly fine. And if you don't know what that is, ignore this. 
 
 
+#### Windows
+I have less experience here, but you may want to install python from the Microsoft store. There's a tutorial here on 
+getting started with python
+https://learn.microsoft.com/en-us/windows/python/beginners
 
-## fin
+and this page will get you started with git. 
+https://git-scm.com/download/win
 
-enter 
-'''
-git checkout main
-''' 
-to jump to the final working code. To see all the steps, you can do
-'''
+
+
+## To install
+
+use git to download this repository: 
+```
+git clone https://github.com/mls2000/scraper-demo.git
+```
+this will make a new folder named "scraper-demo". `cd` into that. 
+
+#### making a sandbox with `venv`
+
+We will need to install some libraries to get this running, and we will use a python `virtualenv` to manage them. If you haven't used this before, it's a sandbox where we can install any library we want without having to worry about whether it will conflict with libraries required for other projects. There are two steps: 1) creating the sandbox and 2) activating the sandbox. 
+
+Creating the sandbox is a one time thing. Run this command:
+```
+python3 -m venv venv
+```
+This creates a folder called `venv` to store the libraries you want to install. But first you have to activate it: run 
+```
+source venv/bin/activate
+```
+You'll need to do this every time you open a new CLI prompt. You can tell it's active because by default it updates your CLI prompt to have a `(venv) ` at the front of it. 
+
+#### installing the requirements
+
+With the virtual environment ready, we can now run
+```
+pip install -r requirements.txt
+```
+Which will download the two libraries we need, `requests` and `beautifulsoup4`. 
+
+
+## To run
+
+We break this process into two main steps: 1) copy files off the remote website, and 2) extract the text we want from the files. `scraper.py` takes care of the first step, `parser.py` does the second. You can run each script from the CLI as an argument to `python3`, like `python3 scraper.py` or `python3 parser.py`. 
+
+`scraper.py` has a variable towards the top named `URL` which is the root of the site we want to scrape. It starts on that page, downloads it, and does two things: 1) it saves a local copy in the `scraped` subfolder, and 2) it pulls out all the links. Any links that a) it hasn't seen before and b) are somewhere under `URL` get added to a global list. It then grabs the next link on the list, and repeats the process. 
+
+`parser.py` reads the downloaded html files, and in each file searches for the html elements where the interesting content is stored. 
+
+
+## How did we get here
+
+Writing code is a step by step process. If you want clearer insight into the process of making this scraper, you can look at different branches of this repository: each represents a different step along the way. To go to the first, enter 
+```
+git checkout step001
+``` 
+to jump to the first step. To see all the steps, you can do
+```
 git branch
-'''
+```
+
+
+
+
 
 
